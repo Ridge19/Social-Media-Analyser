@@ -6,29 +6,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
-//public class HelloController {
-//    @FXML
-//    private Label welcomeText;
-//
-//    @FXML
-//    protected void onHelloButtonClick() {
-//        welcomeText.setText("Welcome to JavaFX Application!");
-//    }
-//}
-
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class SocialMediaController {
-
     @FXML
     private Label AccountLabel;
 
@@ -59,47 +48,68 @@ public class SocialMediaController {
     @FXML
     private CheckBox showPassword;
 
+    Stage stage;
+
 
     @FXML
     public void SignIn(ActionEvent event) throws IOException {
-        System.out.println("Test");
+        System.out.println("Logging in");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(SocialMedia.class.getResource("Main-Page.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Main-Page.fxml"));
 
-        Parent main = FXMLLoader.load(getClass().getResource("Main-Page.fxml"));
+        Scene scene = new Scene(root);
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Social Media Manager");
+        primaryStage.setScene(scene);
 
-        Stage scene = new Stage();
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        primaryStage.show();
 
-        scene.setTitle("Social Media Manager");
-
-        scene.setScene(scene.getScene());
-        scene.show();
     }
 
-    public void Back(ActionEvent event) throws IOException {
+
+    public void SignOut(ActionEvent event) throws IOException {
         System.out.println("Going back");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(SocialMedia.class.getResource("LoginPage.fxml"));
+        Parent rootOut = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+        Scene SceneOut = new Scene(rootOut);
+        Stage SecondaryStage = new Stage();
 
-        Parent main = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        SecondaryStage.setTitle("Social Media Manager - Lggin");
+        SecondaryStage.setScene(SceneOut);
+        SecondaryStage.initModality(Modality.WINDOW_MODAL);
+//        SecondaryStage.initOwner(LoginWindow.getScene().getWindow());
+        SecondaryStage.show();
 
-        Stage scene = new Stage();
+        if (SecondaryStage.isShowing()) {
+            System.out.println("Second Stage is showing");
+        } else {
+            System.out.println("Second Stage is not showing");
+        }
 
-        scene.setTitle("Social Media Manager - Login");
 
-        scene.setScene(scene.getScene());
-        scene.show();
     }
 
     @FXML
-    void CreateAccount(ActionEvent event) {
+    public void CreateAccount(ActionEvent event) {
         System.out.println("Creating account");
     }
 
     @FXML
-    void Quit(ActionEvent event) {
-        System.out.println("Quitting");
-        Platform.exit();
+    public void Quit(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Quit");
+        alert.setHeaderText("You're about to close the application!");
+        alert.setContentText("Are you sure you want to close the application?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Stage stage = (Stage) LoginWindow.getScene().getWindow();
+            System.out.println("you successfully logged out!");
+            stage.close();
+
+
+        }
     }
 
 
