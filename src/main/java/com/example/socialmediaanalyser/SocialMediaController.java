@@ -57,6 +57,11 @@ public class SocialMediaController {
         System.out.println("Test");
     }
 
+    @FXML
+    void CreateAccount(ActionEvent event) {
+        System.out.println("Creating account");
+    }
+
 }
 
 
