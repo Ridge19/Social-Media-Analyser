@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -111,19 +112,30 @@ public class SocialMediaController {
 
     @FXML
     public void Back(ActionEvent event) throws IOException{
-        Parent root3 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
+        Parent root3 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
         Scene BackScene = new Scene(root3);
-        Stage FourhtStage = new Stage();
+        Stage FourthStage = new Stage();
 
-        FourhtStage.setTitle("Social Media Manager - Main Page");
-        FourhtStage.setScene(BackScene);
-        FourhtStage.initModality(Modality.WINDOW_MODAL);
-        FourhtStage.show();
+        FourthStage.setTitle("Social Media Manager - Login Page");
+        FourthStage.setScene(BackScene);
+        FourthStage.initModality(Modality.WINDOW_MODAL);
+        FourthStage.show();
 
-        if (FourhtStage.isShowing()) {
-            System.out.println("Second Stage is showing");
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("CANCEL");
+        alert.setHeaderText("You're about to cancel creating an account!");
+        alert.setContentText("Are you sure you want to cancel?");
+
+        if (alert.showAndWait().get() == ButtonType.YES) {
+            Stage stage = (Stage) LoginWindow.getScene().getWindow();
+            System.out.println("ACCOUNT CREATION CANCELLED");
+            stage.close();
+        }
+
+        if (FourthStage.isShowing()) {
+            System.out.println("Fourth Stage is showing");
         } else {
-            System.out.println("Second Stage is not showing");
+            System.out.println("Fourth Stage is not showing");
         }
     }
 
