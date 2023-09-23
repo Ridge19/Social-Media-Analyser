@@ -2,8 +2,10 @@ package com.example.socialmediaanalyser;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,14 +18,21 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class SocialMediaController {
-    @FXML
-    private Label AccountLabel;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-    @FXML
-    private Button CreateAccountButton;
+
+public class SocialMediaController implements Initializable {
+    public AnchorPane MainPage;
+    public TextField EmailField;
 
     @FXML
     private Label LoginLabel;
@@ -32,16 +41,22 @@ public class SocialMediaController {
     private AnchorPane LoginWindow;
 
     @FXML
+    private TextField UsernameField;
+
+    @FXML
     private TextField PasswordField;
 
     @FXML
+    private Label WelcomeLabel;
+
+    @FXML
+    private Label AccountLabel;
+
+    @FXML
+    private Button CreateAccountButton;
+
+    @FXML
     private Label PasswordLabel;
-
-    @FXML
-    private Button SignInButton;
-
-    @FXML
-    private TextField UsernameField;
 
     @FXML
     private Label usernameLabel;
@@ -52,42 +67,50 @@ public class SocialMediaController {
     @FXML
     private Button BackButton;
 
-    Stage stage;
-
+    @FXML
+    private Button SignOut;
 
     @FXML
-    public void SignIn(ActionEvent event) throws IOException {
-        System.out.println("Logging in");
+    private Label TitleLabel;
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+    @FXML
+    private Button SignInButton;
 
-        Scene scene = new Scene(root);
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Social Media Manager");
-        primaryStage.setScene(scene);
+    public LoginModel loginModel = new LoginModel();
 
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.show();
+    Stage stage;
+    public SocialMediaController() throws SQLException {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (loginModel.isDbConnected()) {
+            LoginLabel.setText("Connected");
+        } else {
+            LoginLabel.setText("Not Connected");
+        }
     }
 
 
+    @FXML
+    public void SignIn(ActionEvent event) throws SQLException, IOException {
+        try {
+            if (loginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
+                WelcomeLabel.setText("Welcome!");
+                System.out.println("logged in");
+            } else {
+                WelcomeLabel.setText("You arent logged in!");
+                System.out.println("Cannot log in!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void SignOut(ActionEvent event) throws IOException {
         System.out.println("Going back");
 
-        Parent rootOut = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
-        Scene SceneOut = new Scene(rootOut);
-        Stage SecondaryStage = new Stage();
-
-        SecondaryStage.setTitle("Social Media Manager - Login");
-        SecondaryStage.setScene(SceneOut);
-        SecondaryStage.initModality(Modality.WINDOW_MODAL);
-        SecondaryStage.show();
-
-        if (SecondaryStage.isShowing()) {
-            System.out.println("Second Stage is showing");
-        } else {
-            System.out.println("Second Stage is not showing");
-        }
     }
 
     @FXML
@@ -112,15 +135,6 @@ public class SocialMediaController {
 
     @FXML
     public void Back(ActionEvent event) throws IOException{
-        Parent root3 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
-        Scene BackScene = new Scene(root3);
-        Stage FourthStage = new Stage();
-
-        FourthStage.setTitle("Social Media Manager - Login Page");
-        FourthStage.setScene(BackScene);
-        FourthStage.initModality(Modality.WINDOW_MODAL);
-        FourthStage.show();
-
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("CANCEL");
         alert.setHeaderText("You're about to cancel creating an account!");
@@ -130,12 +144,6 @@ public class SocialMediaController {
             Stage stage = (Stage) LoginWindow.getScene().getWindow();
             System.out.println("ACCOUNT CREATION CANCELLED");
             stage.close();
-        }
-
-        if (FourthStage.isShowing()) {
-            System.out.println("Fourth Stage is showing");
-        } else {
-            System.out.println("Fourth Stage is not showing");
         }
     }
 
@@ -154,8 +162,6 @@ public class SocialMediaController {
         }
         javafx.application.Platform.exit();
     }
-
-
 }
 
 

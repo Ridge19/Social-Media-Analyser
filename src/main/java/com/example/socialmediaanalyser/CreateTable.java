@@ -17,7 +17,6 @@ public class CreateTable {
                     + "FirstName VARCHAR(20) NOT NULL,"
                     + "LastName VARCHAR(20) NOT NULL,"
                     + "Email VARCHAR(70) NOT NULL,"
-                    + "PhoneNum INT NOT NULL,"
                     + "PRIMARY KEY (id AUTOINCREMENT))");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

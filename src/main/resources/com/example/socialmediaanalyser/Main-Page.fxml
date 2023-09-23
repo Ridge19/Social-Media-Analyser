@@ -6,13 +6,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.SocialMediaController">
    <children>
       <AnchorPane fx:id="MainPage" prefHeight="433.0" prefWidth="661.0">
          <children>
             <Button fx:id="SignOut" layoutX="14.0" layoutY="346.0" mnemonicParsing="false" onAction="#SignOut" text="Sign Out" />
-            <Label layoutX="199.0" layoutY="26.0" text="Data Analytics Hub">
+            <Label fx:id="TitleLabel" layoutX="143.0" layoutY="26.0" prefHeight="71.0" prefWidth="315.0">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="WelcomeLabel" layoutX="169.0" layoutY="109.0" prefHeight="35.0" prefWidth="276.0" text="Hello">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="WelcomeLabel" layoutX="189.0" layoutY="129.0" prefHeight="35.0" prefWidth="276.0">
                <font>
                   <Font size="24.0" />
                </font>
