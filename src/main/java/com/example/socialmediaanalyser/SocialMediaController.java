@@ -35,46 +35,49 @@ public class SocialMediaController implements Initializable {
     public TextField EmailField;
 
     @FXML
-    private Label LoginLabel;
+    public Label LoginLabel;
 
     @FXML
-    private AnchorPane LoginWindow;
+    public Label DBLabel;
 
     @FXML
-    private TextField UsernameField;
+    public Label WelcomeLabel;
 
     @FXML
-    private TextField PasswordField;
+    public AnchorPane LoginWindow;
 
     @FXML
-    private Label WelcomeLabel;
+    public TextField UsernameField;
 
     @FXML
-    private Label AccountLabel;
+    public TextField PasswordField;
 
     @FXML
-    private Button CreateAccountButton;
+    public Label StatusLabel;
 
     @FXML
-    private Label PasswordLabel;
+    public Label AccountLabel;
 
     @FXML
-    private Label usernameLabel;
+    public Button CreateAccountButton;
 
     @FXML
-    private CheckBox showPassword;
+    public Label PasswordLabel;
 
     @FXML
-    private Button BackButton;
+    public Label usernameLabel;
 
     @FXML
-    private Button SignOut;
+    public Button BackButton;
 
     @FXML
-    private Label TitleLabel;
+    public Button SignOut;
 
     @FXML
-    private Button SignInButton;
+    public Label TitleLabel;
+
+    @FXML
+    public Button SignInButton;
 
     public LoginModel loginModel = new LoginModel();
 
@@ -84,11 +87,7 @@ public class SocialMediaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (loginModel.isDbConnected()) {
-            LoginLabel.setText("Connected");
-        } else {
-            LoginLabel.setText("Not Connected");
-        }
+        System.out.println("Database connected");
     }
 
 
@@ -96,13 +95,23 @@ public class SocialMediaController implements Initializable {
     public void SignIn(ActionEvent event) throws SQLException, IOException {
         try {
             if (loginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
-                WelcomeLabel.setText("Welcome!");
+                StatusLabel.setText("Username and password is correct!");
                 System.out.println("logged in");
+
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                Scene scene = new Scene(root);
+                Stage primaryStage = new Stage();
+                primaryStage.setTitle("Social Media Manager");
+                primaryStage.setScene(scene);
+
+                primaryStage.initModality(Modality.APPLICATION_MODAL);
+                primaryStage.show();
             } else {
-                WelcomeLabel.setText("You arent logged in!");
+                StatusLabel.setText("username and password is not correct!");
                 System.out.println("Cannot log in!");
             }
         } catch (SQLException e) {
+            StatusLabel.setText("Username and password is not correct!");
             e.printStackTrace();
         }
     }
@@ -111,12 +120,34 @@ public class SocialMediaController implements Initializable {
     public void SignOut(ActionEvent event) throws IOException {
         System.out.println("Going back");
 
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+
+        Scene scene1 = new Scene(root);
+        Stage Stage = new Stage();
+        Stage.setTitle("Social Media Manager");
+        Stage.setScene(scene1);
+
+        Stage.initModality(Modality.APPLICATION_MODAL);
+        Stage.show();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("SIGN OUT");
+        alert.setHeaderText("You're about to sign out of your account!");
+        alert.setContentText("Are you sure you want to sign out?");
+
+        if (alert.showAndWait().get() == ButtonType.YES) {
+            Stage stage = (Stage) LoginWindow.getScene().getWindow();
+            System.out.println("ACCOUNT SIGNED OUT");
+            stage.close();
+        }
+
     }
 
     @FXML
     public void CreateAccount(ActionEvent event) throws IOException {
         System.out.println("Creating account");
 
+//        Parent rootOut = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountPage.fxml")));
         Parent rootOut = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountPage.fxml")));
         Scene SceneOut = new Scene(rootOut);
         Stage ThirdStage = new Stage();
@@ -135,6 +166,16 @@ public class SocialMediaController implements Initializable {
 
     @FXML
     public void Back(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+
+        Scene scene1 = new Scene(root);
+        Stage Stage = new Stage();
+        Stage.setTitle("Social Media Manager");
+        Stage.setScene(scene1);
+
+        Stage.initModality(Modality.APPLICATION_MODAL);
+        Stage.show();
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("CANCEL");
         alert.setHeaderText("You're about to cancel creating an account!");

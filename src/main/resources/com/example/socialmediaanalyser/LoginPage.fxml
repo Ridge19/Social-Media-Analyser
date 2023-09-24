@@ -56,7 +56,7 @@
             <Label fx:id="AccountLabel" layoutX="260.0" layoutY="296.0" text="dont have an account?" />
             <Button fx:id="CreateAccountButton" layoutX="267.0" layoutY="319.0" mnemonicParsing="false" onAction="#CreateAccount" text="Make an account" />
             <Button fx:id="QuitButton" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" onAction="#Quit" prefHeight="25.0" prefWidth="47.0" text="Quit" />
-            <Label fx:id="WelcomeLabel" layoutX="501.0" layoutY="110.0" />
+            <Label fx:id="StatusLabel" layoutX="206.0" layoutY="90.0" prefHeight="17.0" prefWidth="242.0" />
       </children>
     </AnchorPane>
   </children>

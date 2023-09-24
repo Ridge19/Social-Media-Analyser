@@ -2,6 +2,7 @@ package com.example.socialmediaanalyser;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -10,11 +11,16 @@ import java.io.IOException;
 public class SocialMedia extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SocialMedia.class.getResource("LoginPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 650, 450);
-        stage.setTitle("Social Media Manager - Login");
-        stage.setScene(scene);
-        stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(SocialMedia.class.getResource("LoginPage.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 650, 450);
+            stage.setTitle("Social Media Manager - Login");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
