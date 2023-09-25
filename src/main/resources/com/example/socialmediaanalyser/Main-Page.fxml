@@ -16,7 +16,7 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label fx:id="WelcomeLabel" layoutX="163.0" layoutY="62.0" prefHeight="35.0" prefWidth="276.0" text="hello">
+            <Label fx:id="UserLabel" layoutX="163.0" layoutY="62.0" prefHeight="35.0" prefWidth="276.0" text="user Welcome">
                <font>
                   <Font size="24.0" />
                </font>
