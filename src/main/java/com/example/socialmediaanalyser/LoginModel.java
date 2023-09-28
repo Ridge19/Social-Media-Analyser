@@ -1,5 +1,12 @@
 package com.example.socialmediaanalyser;
 
+//import java.awt.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
+import java.awt.*;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.SQLException;

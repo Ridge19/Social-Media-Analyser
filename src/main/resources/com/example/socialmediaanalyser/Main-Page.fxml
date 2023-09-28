@@ -11,12 +11,12 @@
       <AnchorPane fx:id="MainPage" prefHeight="433.0" prefWidth="661.0">
          <children>
             <Button fx:id="SignOut" layoutX="14.0" layoutY="346.0" mnemonicParsing="false" onAction="#SignOut" text="Sign Out" />
-            <Label fx:id="TitleLabel" layoutX="143.0" layoutY="26.0" prefHeight="71.0" prefWidth="315.0">
+            <Label fx:id="TitleLabel" layoutX="84.0" layoutY="14.0" prefHeight="117.0" prefWidth="415.0" text="Data Analytics Hub">
                <font>
-                  <Font size="36.0" />
+                  <Font size="48.0" />
                </font>
             </Label>
-            <Label fx:id="UserLabel" layoutX="163.0" layoutY="62.0" prefHeight="35.0" prefWidth="276.0" text="user Welcome">
+            <Label fx:id="UserLabel" layoutX="154.0" layoutY="131.0" prefHeight="35.0" prefWidth="276.0" text="Hello, ">
                <font>
                   <Font size="24.0" />
                </font>

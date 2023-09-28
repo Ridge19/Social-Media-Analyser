@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class SocialMediaController<UserController> implements Initializable {
+public class SocialMediaController implements Initializable {
     public AnchorPane MainPage;
 
     public TextField EmailField;
@@ -81,37 +81,35 @@ public class SocialMediaController<UserController> implements Initializable {
         System.out.println("Database connected");
     }
 
-    @FXML
-    public void GetUser(String user) {
-        UserLabel.setText(user);
-    }
-
 //    @FXML
+//    public void GetUserName(String UserName) {
+//        UserLabel.setText("Welcome " + UserName + "!");
+//    }
+
+    @FXML
     public void SignIn(ActionEvent event) throws SQLException, IOException {
         try {
             if (loginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
                 StatusLabel.setText("Username and password is correct!");
                 System.out.println("logged in");
 
+                System.out.println("Welcome " + UsernameField.getText());
+
+//                UserLabel.setText("Welcome " + UserLabel.getText());
                 ((Node)event.getSource()).getScene().getWindow().hide();
                 Stage PrimaryStage = new Stage();
-                FXMLLoader loader = new FXMLLoader();
-                Pane root = loader.load(getClass().getResource("Main-Page.fxml"));
+                Pane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
                 Scene scene = new Scene(root);
                 PrimaryStage.setScene(scene);
                 PrimaryStage.show();
 
-//                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
-//                Scene scene = new Scene(root);
-//                Stage primaryStage = new Stage();
-//                primaryStage.setTitle("Social Media Manager");
-//                primaryStage.setScene(scene);
-//                primaryStage.initModality(Modality.APPLICATION_MODAL);
-//                primaryStage.show();
+
+
             } else {
                 StatusLabel.setText("username and password is not correct!");
                 System.out.println("Cannot log in!");
             }
+
         } catch (SQLException e) {
             StatusLabel.setText("Fields cannot be empty! enter a username and password!");
             e.printStackTrace();
@@ -151,6 +149,7 @@ public class SocialMediaController<UserController> implements Initializable {
 
         Parent rootOut = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountPage.fxml")));
         Scene SceneOut = new Scene(rootOut);
+        ((Node)event.getSource()).getScene().getWindow().hide();
         Stage ThirdStage = new Stage();
 
         ThirdStage.setTitle("Social Media Manager - Create Account");
@@ -170,6 +169,7 @@ public class SocialMediaController<UserController> implements Initializable {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
 
         Scene scene1 = new Scene(root);
+        ((Node)event.getSource()).getScene().getWindow().hide();
         Stage Stage = new Stage();
         Stage.setTitle("Social Media Manager");
         Stage.setScene(scene1);
@@ -177,7 +177,7 @@ public class SocialMediaController<UserController> implements Initializable {
         Stage.initModality(Modality.APPLICATION_MODAL);
         Stage.show();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("CANCEL");
         alert.setHeaderText("You're about to cancel creating an account!");
         alert.setContentText("Are you sure you want to cancel?");
@@ -186,6 +186,8 @@ public class SocialMediaController<UserController> implements Initializable {
             Stage stage = (Stage) LoginWindow.getScene().getWindow();
             System.out.println("ACCOUNT CREATION CANCELLED");
             stage.close();
+        } else if (alert.showAndWait().get() == ButtonType.CANCEL) {
+            stage.show();
         }
     }
 
