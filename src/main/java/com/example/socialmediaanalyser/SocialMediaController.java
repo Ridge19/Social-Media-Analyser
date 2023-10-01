@@ -1,5 +1,8 @@
 package com.example.socialmediaanalyser;
 
+import java.util.*;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static com.example.socialmediaanalyser.SocialMedia.post;
 
 
 public class SocialMediaController implements Initializable {
@@ -216,7 +221,9 @@ public class SocialMediaController implements Initializable {
 
     @FXML
     public void ListPost(ActionEvent event) throws IOException {
+        for (Posts p : post) {
 
+        }
     }
 
     @FXML
