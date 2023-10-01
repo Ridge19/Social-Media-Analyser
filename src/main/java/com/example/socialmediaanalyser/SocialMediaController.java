@@ -1,8 +1,5 @@
 package com.example.socialmediaanalyser;
 
-import java.util.*;
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,13 +16,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static com.example.socialmediaanalyser.SocialMedia.post;
-
 
 public class SocialMediaController implements Initializable {
+    //ArrayList Declaration
+    ArrayList<Posts> post = new ArrayList<Posts>();
     public AnchorPane MainPage;
 
     public TextField EmailField;
@@ -75,6 +73,21 @@ public class SocialMediaController implements Initializable {
     @FXML
     public Button SignInButton;
 
+    @FXML
+    public Button ListPost;
+
+    @FXML
+    public Button AddPost1;
+
+    @FXML
+    public Button Back;
+
+    @FXML
+    public Button AccountButton;
+
+//    @FXML
+//    public ListView ShowPost = new ListView();
+
     public LoginModel loginModel = new LoginModel();
 
     Stage stage;
@@ -85,8 +98,6 @@ public class SocialMediaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Database connected");
     }
-
-
 
     @FXML
     public void SignIn(ActionEvent event) throws SQLException, IOException {
@@ -221,9 +232,25 @@ public class SocialMediaController implements Initializable {
 
     @FXML
     public void ListPost(ActionEvent event) throws IOException {
-        for (Posts p : post) {
+        System.out.println("button clicked");
 
+        for (Posts p : post) {
+            System.out.println(p);
         }
+    }
+
+    @FXML
+    public void AccountSettings(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountSetting.fxml")));
+
+        Scene scene1 = new Scene(root);
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        Stage Stage = new Stage();
+        Stage.setTitle("Social Media Manager - ACCOUNT OPTIONS");
+        Stage.setScene(scene1);
+
+        Stage.initModality(Modality.APPLICATION_MODAL);
+        Stage.show();
     }
 
     @FXML
