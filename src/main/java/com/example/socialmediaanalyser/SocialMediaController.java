@@ -81,10 +81,7 @@ public class SocialMediaController implements Initializable {
         System.out.println("Database connected");
     }
 
-//    @FXML
-//    public void GetUserName(String UserName) {
-//        UserLabel.setText("Welcome " + UserName + "!");
-//    }
+
 
     @FXML
     public void SignIn(ActionEvent event) throws SQLException, IOException {
@@ -94,6 +91,9 @@ public class SocialMediaController implements Initializable {
                 System.out.println("logged in");
 
                 System.out.println("Welcome " + UsernameField.getText());
+//                UserLabel.setText(UsernameField.getText());
+
+
 
 //                UserLabel.setText("Welcome " + UserLabel.getText());
                 ((Node)event.getSource()).getScene().getWindow().hide();
@@ -102,9 +102,6 @@ public class SocialMediaController implements Initializable {
                 Scene scene = new Scene(root);
                 PrimaryStage.setScene(scene);
                 PrimaryStage.show();
-
-
-
             } else {
                 StatusLabel.setText("username and password is not correct!");
                 System.out.println("Cannot log in!");
@@ -121,7 +118,6 @@ public class SocialMediaController implements Initializable {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
 
-
         Scene scene1 = new Scene(root);
         Stage Stage = new Stage();
         Stage.setTitle("Social Media Manager");
@@ -130,7 +126,7 @@ public class SocialMediaController implements Initializable {
         Stage.initModality(Modality.APPLICATION_MODAL);
         Stage.show();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("SIGN OUT");
         alert.setHeaderText("You're about to sign out of your account!");
         alert.setContentText("Are you sure you want to sign out?");
@@ -186,9 +182,41 @@ public class SocialMediaController implements Initializable {
             Stage stage = (Stage) LoginWindow.getScene().getWindow();
             System.out.println("ACCOUNT CREATION CANCELLED");
             stage.close();
-        } else if (alert.showAndWait().get() == ButtonType.CANCEL) {
-            stage.show();
         }
+    }
+
+    @FXML
+    public void AddList(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Add-ListPost.fxml")));
+
+        Scene scene1 = new Scene(root);
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        Stage Stage = new Stage();
+        Stage.setTitle("Social Media Manager");
+        Stage.setScene(scene1);
+
+        Stage.initModality(Modality.APPLICATION_MODAL);
+        Stage.show();
+
+    }
+
+    @FXML
+    public void PostBack(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+
+        Scene scene1 = new Scene(root);
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        Stage Stage = new Stage();
+        Stage.setTitle("Social Media Manager");
+        Stage.setScene(scene1);
+
+        Stage.initModality(Modality.APPLICATION_MODAL);
+        Stage.show();
+    }
+
+    @FXML
+    public void ListPost(ActionEvent event) throws IOException {
+
     }
 
     @FXML
